@@ -1,0 +1,11 @@
+[Unit]
+Description=Run SSL Certificate Monitor every 6 hours
+Requires=ssl-monitor.service
+
+[Timer]
+OnCalendar=*-*-* 0/6:00:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

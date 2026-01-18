@@ -1,0 +1,61 @@
+# SSL Certificate Monitor Configuration Example
+# Save this as config.yaml and customize for your environment
+
+# Domains to monitor
+domains:
+  - host: example.com
+    port: 443
+    name: "My Website"
+  - host: api.example.com
+    port: 443
+  - host: mail.example.com
+    port: 993
+    insecure_skip_verify: false
+
+# Notification thresholds in days before expiry
+reminder_days:
+  - 30
+  - 14
+  - 7
+  - 1
+
+# Notification channels
+notifications:
+  slack:
+    enabled: false
+    webhook_url: "https://hooks.slack.com/services/XXX/YYY/ZZZ"
+    channel: "#alerts"
+    username: "SSL Monitor"
+    icon_emoji: ":lock:"
+  email:
+    enabled: false
+    smtp_host: "smtp.gmail.com"
+    smtp_port: 587
+    username: "your-email@gmail.com"
+    password: "your-app-password"
+    from: "ssl-monitor@example.com"
+    to: "admin@example.com"
+    use_tls: true
+  webhook:
+    enabled: false
+    url: "https://webhook.example.com/ssl-alerts"
+    method: POST
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer your-token"
+    body_template: '{"domain":"{{.Domain}}","days_remaining":{{.DaysRemaining}},"expiry":"{{.Expiry.Format "2006-01-02T15:04:05Z07:00"}}"}'
+  discord:
+    enabled: false
+    webhook_url: "https://discord.com/api/webhooks/XXX/YYY"
+    username: "SSL Monitor"
+    avatar_url: ""
+
+# State persistence
+state:
+  file: "/var/lib/ssl-monitor/state.json"
+  cooldown_hours: 24
+
+# Logging configuration
+log:
+  level: "info"
+  file: "" # Leave empty for stdout, or specify a file path

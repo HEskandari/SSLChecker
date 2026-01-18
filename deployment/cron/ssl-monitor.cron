@@ -1,0 +1,17 @@
+# SSL Certificate Monitor Cron Configuration
+# Runs every 6 hours at minute 0
+
+# Example for Linux/Unix systems
+0 */6 * * * /usr/local/bin/ssl-cert-monitor --config /etc/ssl-monitor/config.yaml
+
+# Alternative: Run every hour (for more frequent checks)
+# 0 * * * * /usr/local/bin/ssl-cert-monitor --config /etc/ssl-monitor/config.yaml
+
+# Alternative: Run daily at 9 AM
+# 0 9 * * * /usr/local/bin/ssl-cert-monitor --config /etc/ssl-monitor/config.yaml
+
+# With logging to file (optional)
+# 0 */6 * * * /usr/local/bin/ssl-cert-monitor --config /etc/ssl-monitor/config.yaml >> /var/log/ssl-monitor.log 2>&1
+
+# With specific user
+# 0 */6 * * * ssl-monitor /usr/local/bin/ssl-cert-monitor --config /etc/ssl-monitor/config.yaml
